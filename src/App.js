@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Cross from "./Cross";
+import data from "./data";
+import "./styles.css";
 
 function App() {
+  const [value, setValue] = useState('')
+
+
+  const hendleSearch = data.filter((item)=> {
+ return item.name.toLowerCase().includes(value.toLowerCase())
+})
+
+  //
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="divBody">
+      <div className="divInput">
+        <input className="inp" type="text" onChange={(event)=> setValue(event.target.value)} />
+      </div>
+
+      <div className="divCards">
+        {hendleSearch.map((item) => {
+          return <Cross img={item.img} name={item.name} price={item.price} />;
+        })}
+      </div>
     </div>
   );
 }
